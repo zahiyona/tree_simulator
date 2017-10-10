@@ -1,0 +1,3 @@
+tread 'tree(s) from TNT, for data in data/tnt_matrix/tnt_matrix_n20.tnt'
+(0 (6 (((1 5 )((2 11 )(8 16 )))(((17 (3 14 ))(12 19 ))((10 (9 (4 13 )))(15 (7 18 )))))));
+proc-;
