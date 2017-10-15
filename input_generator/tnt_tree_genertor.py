@@ -13,7 +13,7 @@ class TntTreeGenerator:
     def _move_tnt_logs(self, logs_dir_path):
         os.makedirs(os.path.dirname(logs_dir_path), exist_ok=True)
         shutil.move(self._tnt_output_tree_path, logs_dir_path + "tmp.tre")
-        shutil.move("aquickie.tre", logs_dir_path + "aquickie.tre")
+        #shutil.move("aquickie.tre", logs_dir_path + "aquickie.tre")
         shutil.move("aquickie.out", logs_dir_path + "aquickie.out")
 
     def _convert_indices_to_taxas(self, tnt_matrix_path):

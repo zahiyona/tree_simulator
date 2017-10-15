@@ -86,7 +86,7 @@ foreach my $qr (@quartets){
 my $kk = $ele[0];
 my $len = length($mrpMat{$kk});
 open (MRPF,">data/tnt_matrix/tnt_matrix_n".(@ele).".tnt");
-print MRPF "MXRAM 800\n"."xread\n" .$len." ".(@ele)."\n";
+print MRPF "MXRAM 3300\n"."xread\n" .$len." ".(@ele)."\n";
 
 foreach my $e (keys %mrpMat){
     if (length($mrpMat{$e}) ne  $len){

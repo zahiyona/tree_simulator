@@ -169,7 +169,7 @@ else
            ALSO NOTE: THIS IS AN OVERKILL FOR MOST DATA SETS!
         ------------------------------------------------------------ ; 
   hold 100 ; 
-  xmu = hit 20 drift 10 ;
+  xmu = hit 1 drift 1 ;
   if ( 'dobremer' ) save ; end 
   nelsen * ; 
   if ( 'plotapo' ) 
@@ -221,28 +221,7 @@ if ( 'dobremer' )
    end
 
 
-if ( 'bootit' ) 
-  ttag = ;
-  if ( !windows ) cls ; end 
-  quote &10
-        ------------------------------------------------------------
-        Resampling is done with 100 replications of symmetric 
-        resampling (see Goloboff et al. 2003), analyzing each data 
-        set with a single random addition sequence plus TBR
-        (collapsing the resulting tree with TBR, see Goloboff &38 
-        Farris, 2001).  The labels on branches show frequency and 
-        frequency differences (see Goloboff et al. 2003).
-        ------------------------------------------------------------ ; 
-  coll tbr ; 
-  resample [ mu1=ho1; ] rep 100 freq gc from 0 ; 
-  keep 1 ;   
-  if ( windows ) log & aquickie.emf ; end 
-  ttag ;
-  if ( windows ) log /& ; tplot [ ; end 
-  end
 
-
-export - aquickie.tre ;
 if ( windows )
   if ( 'bootit' ) 
      quote Tree-diagram (with bremer supports) saved to file aquickie_brem.emf  ;

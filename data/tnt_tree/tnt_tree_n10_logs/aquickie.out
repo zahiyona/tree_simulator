@@ -16,30 +16,11 @@ Record search status: every 1 rep(s).
         ------------------------------------------------------------ 
 Space for 100 trees in memory 
 Repl. Algor.     Tree        Score       Best Score   Time       Rearrangs.
-0     FUSE       5           210         210          0:00:00    39,192        
-1     FUSE       5           210         210          0:00:00    78,276        
-2     FUSE       5           210         210          0:00:00    117,414       
-3     FUSE       5           210         210          0:00:00    156,498       
-4     FUSE       5           210         210          0:00:00    195,582       
-5     FUSE       5           210         210          0:00:00    234,450       
-6     FUSE       5           210         210          0:00:00    273,588       
-7     FUSE       5           210         210          0:00:00    312,510       
-8     FUSE       5           210         210          0:00:00    351,648       
-9     FUSE       5           210         210          0:00:00    390,732       
-10    FUSE       5           210         210          0:00:00    429,762       
-11    FUSE       5           210         210          0:00:00    468,900       
-12    FUSE       5           210         210          0:00:00    507,930       
-13    FUSE       5           210         210          0:00:00    546,852       
-14    FUSE       5           210         210          0:00:00    585,936       
-15    FUSE       5           210         210          0:00:00    625,182       
-16    FUSE       5           210         210          0:00:00    664,320       
-17    FUSE       5           210         210          0:00:00    703,458       
-18    FUSE       5           210         210          0:00:00    742,434       
-19    FUSE       5           210         210          0:00:00    781,410       
-19    FUSE       5           ------      210          0:00:00    781,410       
+5     FUSE       5           210         210          0:00:00    35,724        
+5     FUSE       5           ------      210          0:00:00    35,724        
 Completed search.
-Total rearrangements examined: 781,410. 
-No target score defined.  Best score hit 20 times.
+Total rearrangements examined: 35,724. 
+No target score defined.  Best score hit 1 times.
 Best score: 210.  1 trees retained. 
 xmult 0.00 secs. 
 1 trees saved to tmp.tre           
@@ -60,16 +41,16 @@ nelsen 0.00 secs.
 Collapsing branches with no possible support ("rule 3") 
  
 Synapomorphies common to 1 trees 
-   ,-- 5
-   |  ,-- 6
-|--|  |                                                                          ,-- 1
-   `--|                                    ,--2\3\13\14\23\24\43\44\78\79\134\135--- 9
-      `--0\1\8\11\18\21\38\41\73\76\129\132|                                                              ,-- 4
-                                           `--6\7\9\10\16\17\19\20\36\37\39\40\71\72\74\75\127\128\130\131|                                                     ,-- 8
-                                                                                                          `--25\26\28\31\45\46\48\51\80\81\83\86\136\137\139\142|                                                        ,-- 0
-                                                                                                                                                                `--65\66\67\68\69\100\101\102\103\104\156\157\158\159\160|                                                 ,-- 7
-                                                                                                                                                                                                                         `--120\121\122\123\124\125\176\177\178\179\180\181|                             ,-- 2
-                                                                                                                                                                                                                                                                           `--203\204\205\206\207\208\209--- 3
+   ,-- 4
+   |  ,-- 0
+|--|  |                                                                                                                                          ,-- 5
+   `--|                                                        ,--115\116\117\118\119\120\121\122\123\124\171\172\173\174\175\176\177\178\179\180|                             ,-- 3
+      |                                                        |                                                                                 `--203\204\205\206\207\208\209--- 9
+      `--65\66\67\68\69\100\101\102\103\104\156\157\158\159\160|                                                                                 ,-- 6
+                                                               |                                                                                 |                                                                                                    ,-- 2
+                                                               `--45\46\48\51\55\56\58\61\80\81\83\86\90\91\93\96\136\137\139\142\146\147\149\152|                                                              ,--2\3\13\14\23\24\43\44\78\79\134\135--- 7
+                                                                                                                                                 `--6\7\9\10\16\17\19\20\36\37\39\40\71\72\74\75\127\128\130\131|                                    ,-- 1
+                                                                                                                                                                                                                `--0\1\8\11\18\21\38\41\73\76\129\132--- 8
 apo 0.00 secs. 
 Collapsing trees with TBR 
 Selecting tree(s) 1,  
@@ -101,50 +82,21 @@ Copied legends: "Relative bremer supports (from 0 trees, cut 0)"
 bsupport 0.00 secs. 
  
 Bremer supports (from 8 trees, cut 0)/Relative bremer supports (from 0 trees, cut 0) 
-    ,--/ 5
-    |          ,--/ 6
-|--/|          |                     ,--/ 1
-    `--10?/100?|          ,--10?/100?---/ 9
-               `--10?/100?|          ,--/ 4
-                          `--10?/100?|          ,--/ 8
-                                     `--10?/100?|          ,--/ 0
-                                                `--10?/100?|          ,--/ 7
-                                                           `--10?/100?|        ,--/ 2
-                                                                      `--7/100?---/ 3
+    ,--/ 4
+    |          ,--/ 0
+|--/|          |                     ,--/ 5
+    `--10?/100?|          ,--10?/100?|        ,--/ 3
+               |          |          `--7/100?---/ 9
+               `--10?/100?|          ,--/ 6
+                          |          |                     ,--/ 2
+                          `--10?/100?|          ,--10?/100?---/ 7
+                                     `--10?/100?|          ,--/ 1
+                                                `--10?/100?---/ 8
 Suboptimal 0.000 x 0.900 
 1 trees in memory 
  
 WARNING: 
 Existing tree-tags will be erased 
  
-
-
-        ------------------------------------------------------------
-        Resampling is done with 100 replications of symmetric 
-        resampling (see Goloboff et al. 2003), analyzing each data 
-        set with a single random addition sequence plus TBR
-        (collapsing the resulting tree with TBR, see Goloboff &
-        Farris, 2001).  The labels on branches show frequency and 
-        frequency differences (see Goloboff et al. 2003).
-        ------------------------------------------------------------ 
-Collapsing trees with TBR 
-Copied legends: "Group freqs., 100 replicates, cut=50 (tree 0) - Symmetric Resampling (P=33)" 
-Copied legends: "GC values, 100 replicates, cut=0 (tree 1) - Symmetric Resampling (P=33)" 
- 
-0.00 secs. to complete resampling 
-1 trees in memory 
- 
-Group freqs., 100 replicates, cut=50 (tree 0) - Symmetric Resampling (P=33)/GC values, 100 replicates, cut=0 (tree 1) - Symmetric Resampling (P=33) 
-    ,--/ 5
-    |         ,--/ 6
-|--/|         |                   ,--/ 1
-    `--100/100|         ,--100/100---/ 9
-              `--100/100|         ,--/ 4
-                        `--100/100|         ,--/ 8
-                                  `--100/100|         ,--/ 0
-                                            `--100/100|         ,--/ 7
-                                                      `--100/100|         ,--/ 2
-                                                                `--100/100---/ 3
-Saved trees (Nexus format) to file aquickie.tre 
 Results saved (as text) to file aquickie.out 
 
