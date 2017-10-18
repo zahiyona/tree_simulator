@@ -11,7 +11,7 @@ class MaxcutGenerator:
 
         output_maxcut_path = "{}_n{}.tnt".format(self._output_maxcut_prefix, str(ntaxa))
         os.makedirs(os.path.dirname(output_maxcut_path), exist_ok=True)
-        log_path = "{}_logs/{}_n{}.log".format(self._output_maxcut_prefix, str(ntaxa))
+        log_path = "{}_logs/maxcut_tree_n{}.log".format(self._output_maxcut_prefix, str(ntaxa))
         os.makedirs(os.path.dirname(log_path), exist_ok=True)
         command = "{} qrtt={} otre={} > {}".format(
             self._maxcut_path, quartet_path, output_maxcut_path, log_path)
