@@ -465,7 +465,7 @@ def obtain_RF(tree1, tree2):
     print("y", file=fparms)
     fparms.close()
     rmfile("outfile")   #remove the output file
-    stat = os.system("phylip treedist < phylip-param.txt > dist.out");
+    stat = os.system("externals/phylip/phylip-3.696/exe/treedist < phylip-param.txt > dist.out");
     print("stat after treedist ", stat)
     if stat:
         ERR("Invalid status after treedist")

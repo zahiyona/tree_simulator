@@ -76,7 +76,7 @@ class TntTreeGenerator:
         p.stdin.write(bytes(process_cmd, "ascii"))
         p.stdin.write(b'aquickie;')
         res = p.communicate()
-        # print(res)
+        print(res)
 
     def generate(self, tnt_matrix_path, ntaxa):
         output_tnt_matrix_path = "{}_n{}.tre".format(self._output_tnt_tree_prefix, str(ntaxa))
