@@ -13,7 +13,7 @@ class ClannGenerator:
     def _extract_quartets(self, quartet_path):
         with open(quartet_path,'r') as quartets_fh:
             quartets_text = quartets_fh.read()
-            quartets = re.findall('(\d),(\d)\|(\d),(\d)', quartets_text)
+            quartets = re.findall('(\d*),(\d*)\|(\d*),(\d*)', quartets_text)
             return quartets
 
 
@@ -49,7 +49,7 @@ class ClannGenerator:
         with open(self._tmp_clann_path,'r') as tmp_clann_fh:
             tmp_tree = tmp_clann_fh.readlines()[0]
             clann_tree = tmp_tree.split(';')[0]
-        os.remove(self._tmp_clann_path)
+        #os.remove(self._tmp_clann_path)
         os.remove('supertree.ps')
         os.makedirs(os.path.dirname(output_tree_path), exist_ok=True)
         with open(output_tree_path, 'w') as tree_fh:

@@ -25,7 +25,7 @@ class SimulationIterationData:
 class TreeSimulator:
 
     def run(self):
-        simulation_iterations = [SimulationIterationData(ntaxa) for ntaxa in range(10, 50, 10)]
+        simulation_iterations = [SimulationIterationData(ntaxa) for ntaxa in range(10, 22, 10)]
         tree_generator = TreeGenerator()
         quartet_generator = QuartetGenerator()
         tnt_matrix_generator = TntMatrixGenerator()
