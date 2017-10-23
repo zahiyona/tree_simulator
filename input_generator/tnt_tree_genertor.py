@@ -2,8 +2,10 @@ import subprocess
 import shutil
 import os
 
+from input_generator.generator_base import GeneratorBase, SimulationIteration
 
-class TntTreeGenerator:
+
+class TntTreeGenerator(GeneratorBase):
     def __init__(self, tnt_binary_path="externals/tnt/tnt",
                  output_tnt_tree_prefix="data/tnt_tree/tnt_tree"):
         self._tnt_binary_path = tnt_binary_path
@@ -78,18 +80,21 @@ class TntTreeGenerator:
         res = p.communicate()
         print(res)
 
-    def generate(self, tnt_matrix_path, ntaxa):
-        output_tnt_matrix_path = "{}_n{}.tre".format(self._output_tnt_tree_prefix, str(ntaxa))
+    def generate(self, simulation_iteration: SimulationIteration):
+        output_tnt_path = "{}_n{}_q{}.tre".format(self._output_tnt_tree_prefix, str(simulation_iteration.ntaxa),
+                                                  str(simulation_iteration.qnum_factor))
         print("### Running tnt binary###")
 
-        self._exec_tnt(tnt_matrix_path)
+        self._exec_tnt(simulation_iteration.tnt_matrix_path)
 
-        tnt_tree = self._convert_indices_to_taxas(tnt_matrix_path)
-        output_tree_path = "{}_n{}.tre".format(self._output_tnt_tree_prefix, str(ntaxa))
+        tnt_tree = self._convert_indices_to_taxas(simulation_iteration.tnt_matrix_path)
+        output_tree_path = "{}_n{}_q{}.tre".format(self._output_tnt_tree_prefix, str(simulation_iteration.ntaxa),
+                                                   str(simulation_iteration.qnum_factor))
         os.makedirs(os.path.dirname(output_tree_path), exist_ok=True)
         with open(output_tree_path, 'w') as tree_fh:
             tree_fh.write(tnt_tree)
-        self._move_tnt_logs("{}_n{}_logs/".format(self._output_tnt_tree_prefix, str(ntaxa)))
+        self._move_tnt_logs("{}_n{}_q{}_logs/".format(self._output_tnt_tree_prefix, str(simulation_iteration.ntaxa),
+                                                      str(simulation_iteration.qnum_factor)))
 
         print("### tnt tree creation finished###")
-        return output_tnt_matrix_path
+        simulation_iteration.tnt_tree_path = output_tnt_path

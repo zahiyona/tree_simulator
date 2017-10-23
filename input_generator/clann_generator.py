@@ -1,10 +1,7 @@
 import os
-import re
+from input_generator.generator_base import GeneratorBase, SimulationIteration
 
-from input_generator.quartet_generator import QuartetGenerator
-
-
-class ClannGenerator:
+class ClannGenerator(GeneratorBase):
     def __init__(self, output_tree_prefix="data/clann_trees/clann_tree", clann_binary_path="externals/clann/clann"):
         self._output_tree_prefix = output_tree_prefix
         self._clann_binary_path = clann_binary_path
@@ -12,13 +9,13 @@ class ClannGenerator:
         self._tmp_clann_path = 'tmp_clann'
         pass
 
-    def _generate_input_file(self, quartet_path, ntaxa):
+    def _generate_input_file(self, quartets_path, ntaxa):
         clann_input_path = "{}_n{}.cln".format(self._clan_input_prefix, str(ntaxa))
         os.makedirs(os.path.dirname(clann_input_path), exist_ok=True)
         with open(clann_input_path, 'w') as input_fh:
             input_fh.write('#NEXUS\n')
             input_fh.write('Begin trees; [Test Tree file in nexus format]\n')
-            quartets = QuartetGenerator.extract_quartets(quartet_path)
+            quartets = self._extract_quartets(quartets_path)
             for quartet_index, quartet in enumerate(quartets):
                 input_fh.write('tree t{} = [&U] (({},{}),({},{}));\n'.format(quartet_index, quartet[0], quartet[1], quartet[2], quartet[3]))
             input_fh.write('End;\n\n')
@@ -29,9 +26,9 @@ class ClannGenerator:
             input_fh.write('endblock;')
         return clann_input_path
 
-    def generate(self, quartet_path, ntaxa):
-        clann_input_path = self._generate_input_file(quartet_path, ntaxa)
-        output_tree_path = "{}_n{}.tre".format(self._output_tree_prefix, str(ntaxa))
+    def generate(self, simulation_iteration: SimulationIteration):
+        clann_input_path = self._generate_input_file(simulation_iteration.quartets_path, simulation_iteration.ntaxa)
+        output_tree_path = "{}_n{}.tre".format(self._output_tree_prefix, str(simulation_iteration.ntaxa))
 
         command = "{} {}".format(self._clann_binary_path, clann_input_path)
         print("### Running system command: {} ###".format(command))
@@ -47,4 +44,4 @@ class ClannGenerator:
         with open(output_tree_path, 'w') as tree_fh:
             tree_fh.write(clann_tree)
 
-        return output_tree_path
+        simulation_iteration.clann_path = output_tree_path

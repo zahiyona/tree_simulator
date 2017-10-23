@@ -14,11 +14,9 @@ my $a2 = \@l5;
 my $rr = "(". join ("," ,@l4) . ")";
 if ($#ARGV < 0) {die "must supply a quartet file, \n";}
 my $fquartets = $ARGV[0];
+my $qnum_factor = $ARGV[1];
 my $time_limit = 5;
-if ($#ARGV > 1)
-{
-    $time_limit = $ARGV[1];
-}
+
 open (FQR, "$fquartets") or die "cannot open fiel $fquartets\n";
 my $line  = <FQR>;
 my @quartets = split(/\s+/,$line);
@@ -85,7 +83,7 @@ foreach my $qr (@quartets){
 
 my $kk = $ele[0];
 my $len = length($mrpMat{$kk});
-open (MRPF,">data/tnt_matrix/tnt_matrix_n".(@ele).".tnt");
+open (MRPF,">data/tnt_matrix/tnt_matrix_n".(@ele)."_q".($qnum_factor).".tnt");
 print MRPF "MXRAM 1300\n"."xread\n" .$len." ".(@ele)."\n";
 
 foreach my $e (keys %mrpMat){
