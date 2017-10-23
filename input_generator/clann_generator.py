@@ -1,6 +1,8 @@
 import os
 import re
 
+from input_generator.quartet_generator import QuartetGenerator
+
 
 class ClannGenerator:
     def __init__(self, output_tree_prefix="data/clann_trees/clann_tree", clann_binary_path="externals/clann/clann"):
@@ -10,20 +12,13 @@ class ClannGenerator:
         self._tmp_clann_path = 'tmp_clann'
         pass
 
-    def _extract_quartets(self, quartet_path):
-        with open(quartet_path,'r') as quartets_fh:
-            quartets_text = quartets_fh.read()
-            quartets = re.findall('(\d*),(\d*)\|(\d*),(\d*)', quartets_text)
-            return quartets
-
-
     def _generate_input_file(self, quartet_path, ntaxa):
         clann_input_path = "{}_n{}.cln".format(self._clan_input_prefix, str(ntaxa))
         os.makedirs(os.path.dirname(clann_input_path), exist_ok=True)
         with open(clann_input_path, 'w') as input_fh:
             input_fh.write('#NEXUS\n')
             input_fh.write('Begin trees; [Test Tree file in nexus format]\n')
-            quartets = self._extract_quartets(quartet_path)
+            quartets = QuartetGenerator.extract_quartets(quartet_path)
             for quartet_index, quartet in enumerate(quartets):
                 input_fh.write('tree t{} = [&U] (({},{}),({},{}));\n'.format(quartet_index, quartet[0], quartet[1], quartet[2], quartet[3]))
             input_fh.write('End;\n\n')
@@ -33,9 +28,6 @@ class ClannGenerator:
             input_fh.write('quit;\n')
             input_fh.write('endblock;')
         return clann_input_path
-
-    def _run_clann(self):
-        pass
 
     def generate(self, quartet_path, ntaxa):
         clann_input_path = self._generate_input_file(quartet_path, ntaxa)
