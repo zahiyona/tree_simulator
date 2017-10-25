@@ -7,12 +7,11 @@ from input_generator.tnt_matrix_generator import TntMatrixGenerator
 from input_generator.tnt_tree_genertor import TntTreeGenerator
 from input_generator.tree_comparator import TreeComparator
 from input_generator.tree_generator import TreeGenerator
-import numpy as np
 
 
 class TreeSimulator:
     def run(self):
-        qnum_factors = np.arange(1.2, 2.8, 0.4)
+        qnum_factors = [1.2, 1.6, 2, 2.4, 2.8]
         simulation_iterations = [SimulationIteration(taxa, round(q, 1)) for q in qnum_factors for taxa in range(7, 18, 4)]
         generators = [TreeGenerator(),
                       QuartetGenerator(),
