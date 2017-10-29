@@ -13,13 +13,15 @@ class TreeSimulator:
     def run(self):
         qnum_factors = [1.2, 1.6, 2, 2.4, 2.8]
         simulation_iterations = [SimulationIteration(taxa, round(q, 1)) for q in qnum_factors for taxa in range(7, 12, 4)]
-        generators = [TreeGenerator(),
-                      QuartetGenerator(),
-                      TntMatrixGenerator(),
-                      TntTreeGenerator(),
-                      MaxcutGenerator(),
-                      #ClannGenerator(),
-                      SprGenerator()]
+        generators = [
+            TreeGenerator(),
+            QuartetGenerator(),
+            TntMatrixGenerator(),
+            TntTreeGenerator(),
+            MaxcutGenerator(),
+            # ClannGenerator(),
+            # SprGenerator()
+            ]
 
         tnt_tree_comparator = TreeComparator("data/tnt_distance/tnt_distance")
         maxcut_tree_comparator = TreeComparator("data/maxcut_distance/maxcut_distance")
