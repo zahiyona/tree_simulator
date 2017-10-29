@@ -39,14 +39,14 @@ class TreeSimulator:
             simulation_iteration.maxcut_distance = maxcut_tree_comparator.compare(
                 simulation_iteration, simulation_iteration.maxcut_tree_path
             )
-
-            simulation_iteration.clann_distance = clann_tree_comparator.compare(
-                simulation_iteration, simulation_iteration.clann_path
-            )
-
-            simulation_iteration.spr_distance = spr_tree_comparator.compare(
-                simulation_iteration, simulation_iteration.spr_path
-            )
+            #
+            # simulation_iteration.clann_distance = clann_tree_comparator.compare(
+            #     simulation_iteration, simulation_iteration.clann_path
+            # )
+            #
+            # simulation_iteration.spr_distance = spr_tree_comparator.compare(
+            #     simulation_iteration, simulation_iteration.spr_path
+            # )
 
         for simulation_iteration in simulation_iterations:
             print(simulation_iteration)
