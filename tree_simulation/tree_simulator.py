@@ -59,7 +59,7 @@ class TreeSimulator:
             print(simulation_iteration)
 
         iterations_dump_dir = "data/simulation_iterations_dump"
-        iterations_dump_path = "{}/simulation_iteration_{}_{}_{}".format(iterations_dump_dir, min_taxa, max_taxa, taxa_jump)
+        iterations_dump_path = "{}/simulation_iteration_{}_{}_{}.json".format(iterations_dump_dir, min_taxa, max_taxa, taxa_jump)
         os.makedirs(os.path.dirname(iterations_dump_path), exist_ok=True)
         with open(iterations_dump_path, 'w') as iterations_fh:
             json.dump(jsonpickle.encode(simulation_iterations), iterations_fh)
