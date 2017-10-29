@@ -22,7 +22,6 @@ my $line  = <FQR>;
 my @quartets = split(/\s+/,$line);
 my %comp;    
 
-print "quartets @quartets\n";
 foreach my $qr (@quartets){
 #  print "qr $qr\n";
   if ($qr !~ /(\d+),(\d+)\|(\d+),(\d+):(\d+.?\d*)/){
@@ -84,7 +83,7 @@ foreach my $qr (@quartets){
 my $kk = $ele[0];
 my $len = length($mrpMat{$kk});
 open (MRPF,">data/tnt_matrix/tnt_matrix_n".(@ele)."_q".($qnum_factor).".tnt");
-print MRPF "MXRAM 1300\n"."xread\n" .$len." ".(@ele)."\n";
+print MRPF "MXRAM 25000\n"."xread\n" .$len." ".(@ele)."\n";
 
 foreach my $e (keys %mrpMat){
     if (length($mrpMat{$e}) ne  $len){

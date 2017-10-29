@@ -46,6 +46,8 @@ class TreeSimulator:
             simulation_iteration.maxcut_distance = maxcut_tree_comparator.compare(
                 simulation_iteration, simulation_iteration.maxcut_tree_path
             )
+
+            self._save_results(max_taxa, min_taxa, simulation_iterations, taxa_jump)
             #
             # simulation_iteration.clann_distance = clann_tree_comparator.compare(
             #     simulation_iteration, simulation_iteration.clann_path
@@ -58,8 +60,12 @@ class TreeSimulator:
         for simulation_iteration in simulation_iterations:
             print(simulation_iteration)
 
+
+
+    def _save_results(self, max_taxa, min_taxa, simulation_iterations, taxa_jump):
         iterations_dump_dir = "data/simulation_iterations_dump"
-        iterations_dump_path = "{}/simulation_iteration_{}_{}_{}.json".format(iterations_dump_dir, min_taxa, max_taxa, taxa_jump)
+        iterations_dump_path = "{}/simulation_iteration_{}_{}_{}.json".format(iterations_dump_dir, min_taxa, max_taxa,
+                                                                              taxa_jump)
         os.makedirs(os.path.dirname(iterations_dump_path), exist_ok=True)
         with open(iterations_dump_path, 'w') as iterations_fh:
             json.dump(jsonpickle.encode(simulation_iterations), iterations_fh, indent=4)
