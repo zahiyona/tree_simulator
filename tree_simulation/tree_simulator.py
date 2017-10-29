@@ -1,3 +1,7 @@
+import json
+from externals import jsonpickle
+import os
+
 from input_generator.clann_generator import ClannGenerator
 from input_generator.tree_comparator import TreeComparator
 from input_generator.generator_base import SimulationIteration
@@ -12,7 +16,10 @@ from input_generator.tree_generator import TreeGenerator
 class TreeSimulator:
     def run(self):
         qnum_factors = [1.2, 1.6, 2, 2.4, 2.8]
-        simulation_iterations = [SimulationIteration(taxa, round(q, 1)) for q in qnum_factors for taxa in range(7, 12, 4)]
+        min_taxa = 7
+        max_taxa = 12
+        taxa_jump = 4
+        simulation_iterations = [SimulationIteration(taxa, round(q, 1)) for q in qnum_factors for taxa in range(min_taxa, max_taxa, taxa_jump)]
         generators = [
             TreeGenerator(),
             QuartetGenerator(),
@@ -51,3 +58,8 @@ class TreeSimulator:
         for simulation_iteration in simulation_iterations:
             print(simulation_iteration)
 
+        iterations_dump_dir = "data/simulation_iterations_dump"
+        iterations_dump_path = "{}/simulation_iteration_{}_{}_{}".format(iterations_dump_dir, min_taxa, max_taxa, taxa_jump)
+        os.makedirs(os.path.dirname(iterations_dump_path), exist_ok=True)
+        with open(iterations_dump_path, 'w') as iterations_fh:
+            json.dump(jsonpickle.encode(simulation_iterations), iterations_fh)
