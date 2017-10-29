@@ -18,7 +18,7 @@ class TreeSimulator:
                       TntMatrixGenerator(),
                       TntTreeGenerator(),
                       MaxcutGenerator(),
-                      ClannGenerator(),
+                      #ClannGenerator(),
                       SprGenerator()]
 
         tnt_tree_comparator = TreeComparator("data/tnt_distance/tnt_distance")
