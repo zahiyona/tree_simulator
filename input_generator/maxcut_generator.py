@@ -1,5 +1,7 @@
 import os
 
+import time
+
 from input_generator.generator_base import GeneratorBase, SimulationIteration
 
 
@@ -20,4 +22,5 @@ class MaxcutGenerator(GeneratorBase):
         print("### Running system command for maxcut: {} ###".format(command))
         os.system(command)
         print("### System command finished###")
-        simulation_iteration.maxcut_tree_path = output_maxcut_path
+        simulation_iteration.maxcut_data.running_time = time.time() - self._start_time
+        simulation_iteration.maxcut_data.tree_path = output_maxcut_path

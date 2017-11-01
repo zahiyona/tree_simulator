@@ -48,9 +48,8 @@ quote
  instead of a complete search is VERY STRONGLY RECOMMENDED 
 *************************************************************
 ;
-end 
-if ( !windows ) quote &10&10(press key to continue); pause ; end 
-set runquickie 1
+end
+set runquickie 1;
 if ( 'runquickie' == 2 ) proc/; end 
 end
 

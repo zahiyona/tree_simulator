@@ -12,7 +12,7 @@ class QuartetGenerator(GeneratorBase):
                                                         simulation_iteration.qnum_factor,
                                                         "w" if simulation_iteration.weights else "")
         os.makedirs(os.path.dirname(output_quartet_path), exist_ok=True)
-        command = "{} tree_file={} out_qrt_file={} ntaxa={} weights={} qnum_factor={} select=all".format(
+        command = "{} tree_file={} out_qrt_file={} ntaxa={} weights={} qnum_factor={} select=random".format(
             self._quartet_generator_path, simulation_iteration.simulated_tree_w_path, output_quartet_path,
             simulation_iteration.ntaxa, "on" if simulation_iteration.weights else "off", simulation_iteration.qnum_factor
         )

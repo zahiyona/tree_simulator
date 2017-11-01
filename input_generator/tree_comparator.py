@@ -23,6 +23,7 @@ class TreeComparator:
         with open(temp_qfit_path, 'r') as qfit_fh:
             line = qfit_fh.readline()
         os.remove(temp_qfit_path)
+        line = line.replace("   ", " ")
         line = line.replace("  ", " ")
         qfit_distance = line.split(" ")[1]
         return qfit_distance

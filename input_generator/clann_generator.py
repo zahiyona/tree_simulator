@@ -1,4 +1,7 @@
 import os
+
+import time
+
 from input_generator.generator_base import GeneratorBase, SimulationIteration
 
 class ClannGenerator(GeneratorBase):
@@ -44,4 +47,5 @@ class ClannGenerator(GeneratorBase):
         with open(output_tree_path, 'w') as tree_fh:
             tree_fh.write(clann_tree)
 
-        simulation_iteration.clann_path = output_tree_path
+        simulation_iteration.clann_data.running_time = time.time() - self._start_time
+        simulation_iteration.clann_data.tree_path = output_tree_path

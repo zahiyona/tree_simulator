@@ -2,6 +2,8 @@ import subprocess
 import shutil
 import os
 
+import time
+
 from input_generator.generator_base import GeneratorBase, SimulationIteration
 
 
@@ -25,7 +27,7 @@ class TntTreeGenerator(GeneratorBase):
             tnt_taxas = [line.split(' ')[0] for line in tnt_matrix_lines]
 
         with open(self._tnt_output_tree_path, 'r') as tmp_tree_fh:
-            tree_line = tmp_tree_fh.readlines()[1]
+            tree_line = tmp_tree_fh.readlines()[-1]
             tree_line_iterator = iter(tree_line)
             converted_tree = self.parse_and_convert_tree_line(tnt_taxas, tree_line_iterator)
             if converted_tree[-1] == ',':
@@ -97,4 +99,5 @@ class TntTreeGenerator(GeneratorBase):
                                                       str(simulation_iteration.qnum_factor)))
 
         print("### tnt tree creation finished###")
-        simulation_iteration.tnt_tree_path = output_tnt_path
+        simulation_iteration.tnt_data.running_time = time.time() - self._start_time
+        simulation_iteration.tnt_data.tree_path = output_tnt_path

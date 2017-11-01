@@ -1,5 +1,7 @@
 import os
 
+import time
+
 from input_generator.generator_base import GeneratorBase, SimulationIteration
 
 
@@ -44,4 +46,5 @@ class SprGenerator(GeneratorBase):
         with open(output_tree_path, 'w') as tree_fh:
             tree_fh.write(spr_tree)
 
-        simulation_iteration.spr_path = output_tree_path
+        simulation_iteration.spr_data.running_time = time.time() - self._start_time
+        simulation_iteration.spr_data.tree_path = output_tree_path
