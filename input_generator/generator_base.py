@@ -39,9 +39,9 @@ class SimulationIteration:
         self.weights = True
 
     def __str__(self):
-        return "Iteration results:\ntaxa: {}\nqnum factor: {}\n#tnt#\n{}\n#maxcut#\n{}\n#clann" \
+        return "Iteration results:\ntaxa: {}\nqnum factor: {}\n#tnt#\n{}\n#paup#\n{}\n#maxcut#\n{}\n#clann" \
                "#\n{}\n#spr supertree#\n{}\n".format(
-            self.ntaxa, self.qnum_factor, self.tnt_data,
+            self.ntaxa, self.qnum_factor, self.tnt_data, self.paup_data,
             self.maxcut_data, self.clann_data, self.spr_data
         )
 
