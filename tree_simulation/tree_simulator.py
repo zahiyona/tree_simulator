@@ -3,6 +3,7 @@ from externals import jsonpickle
 import os
 
 from input_generator.clann_generator import ClannGenerator
+from input_generator.paup_generator import PaupGenerator
 from input_generator.tree_comparator import TreeComparator
 from input_generator.generator_base import SimulationIteration
 from input_generator.maxcut_generator import MaxcutGenerator
@@ -25,11 +26,13 @@ class TreeSimulator:
             QuartetGenerator(),
             TntMatrixGenerator(),
             TntTreeGenerator(),
+            PaupGenerator(),
             MaxcutGenerator(),
             ClannGenerator(),
             SprGenerator()
             ]
 
+        paup_tree_comparator = TreeComparator("data/paup_distance/paup_distance")
         tnt_tree_comparator = TreeComparator("data/tnt_distance/tnt_distance")
         maxcut_tree_comparator = TreeComparator("data/maxcut_distance/maxcut_distance")
         clann_tree_comparator = TreeComparator("data/clann_distance/clann_distance")
@@ -39,6 +42,10 @@ class TreeSimulator:
             for generator in generators:
                 generator.set_start_time()
                 generator.generate(simulation_iteration)
+
+            simulation_iteration.paup_data.distance = paup_tree_comparator.compare(
+                simulation_iteration, simulation_iteration.paup_data.tree_path
+            )
 
             simulation_iteration.tnt_data.distance = tnt_tree_comparator.compare(
                 simulation_iteration, simulation_iteration.tnt_data.tree_path
@@ -60,7 +67,6 @@ class TreeSimulator:
 
         for simulation_iteration in simulation_iterations:
             print(simulation_iteration)
-
 
 
     def _save_results(self, max_taxa, min_taxa, simulation_iterations, taxa_jump):

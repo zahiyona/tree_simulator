@@ -6,19 +6,20 @@ from input_generator.generator_base import GeneratorBase, SimulationIteration
 
 class ClannGenerator(GeneratorBase):
     def __init__(self, output_tree_prefix="data/clann_trees/clann_tree", clann_binary_path="externals/clann/clann"):
+        super().__init__()
         self._output_tree_prefix = output_tree_prefix
         self._clann_binary_path = clann_binary_path
         self._clan_input_prefix = "{}_input/clann_input".format(output_tree_prefix)
         self._tmp_clann_path = 'tmp_clann'
-        pass
 
-    def _generate_input_file(self, quartets_path, ntaxa):
-        clann_input_path = "{}_n{}.cln".format(self._clan_input_prefix, str(ntaxa))
+    def _generate_input_file(self, simulation_iteration):
+        clann_input_path = "{}_n{}_q{}.cln".format(self._output_tree_prefix, str(simulation_iteration.ntaxa),
+                                               str(simulation_iteration.qnum_factor))
         os.makedirs(os.path.dirname(clann_input_path), exist_ok=True)
         with open(clann_input_path, 'w') as input_fh:
             input_fh.write('#NEXUS\n')
             input_fh.write('Begin trees; [Test Tree file in nexus format]\n')
-            quartets = self._extract_quartets(quartets_path)
+            quartets = self._extract_quartets(simulation_iteration.quartets_path)
             for quartet_index, quartet in enumerate(quartets):
                 input_fh.write('tree t{} = [&U] (({},{}),({},{}));\n'.format(quartet_index, quartet[0], quartet[1], quartet[2], quartet[3]))
             input_fh.write('End;\n\n')
@@ -30,8 +31,9 @@ class ClannGenerator(GeneratorBase):
         return clann_input_path
 
     def generate(self, simulation_iteration: SimulationIteration):
-        clann_input_path = self._generate_input_file(simulation_iteration.quartets_path, simulation_iteration.ntaxa)
-        output_tree_path = "{}_n{}.tre".format(self._output_tree_prefix, str(simulation_iteration.ntaxa))
+        clann_input_path = self._generate_input_file(simulation_iteration)
+        output_tree_path = "{}_n{}_q{}.tre".format(self._output_tree_prefix, str(simulation_iteration.ntaxa),
+                                                   str(simulation_iteration.qnum_factor))
 
         command = "{} {}".format(self._clann_binary_path, clann_input_path)
         print("### Running system command: {} ###".format(command))

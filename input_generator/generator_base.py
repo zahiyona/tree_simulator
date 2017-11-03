@@ -34,6 +34,7 @@ class SimulationIteration:
         self.maxcut_data = TreeData()  # type: TreeData
         self.clann_data = TreeData()  # type: TreeData
         self.spr_data = TreeData()  # type: TreeData
+        self.paup_data = TreeData()  # type: TreeData
 
         self.weights = True
 

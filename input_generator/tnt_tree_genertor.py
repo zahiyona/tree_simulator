@@ -27,9 +27,10 @@ class TntTreeGenerator(GeneratorBase):
             tnt_taxas = [line.split(' ')[0] for line in tnt_matrix_lines]
 
         with open(self._tnt_output_tree_path, 'r') as tmp_tree_fh:
-            tree_line = tmp_tree_fh.readlines()[-1]
+            tree_line = tmp_tree_fh.readlines()[-2]
             tree_line_iterator = iter(tree_line)
             converted_tree = self.parse_and_convert_tree_line(tnt_taxas, tree_line_iterator)
+            print(converted_tree)
             if converted_tree[-1] == ',':
                 converted_tree = converted_tree[:-1]
         return converted_tree

@@ -10,7 +10,7 @@ from input_generator.generator_base import SimulationIteration
 
 def main():
     iterations_dump_path = "../data/simulation_iterations_dump"
-    iterations_dump_path = iterations_dump_path + "/simulation_iteration_100_201_20.json"
+    iterations_dump_path = iterations_dump_path + "/simulation_iteration_200_501_50.json"
     # iterations_dump_path = iterations_dump_path + "/simulation_iteration_7_15_4.json"
 
     taxa_iteration_map = {} #  type: Dict[float, List[SimulationIteration]]
@@ -44,17 +44,22 @@ def main():
 
         for iteration in iterations:
             if iteration.qnum_factor is not None and iteration.tnt_data.distance is not None \
-                    and iteration.maxcut_data.distance is not None and iteration.clann_data.distance is not None:
+                    and iteration.maxcut_data.distance is not None:
                 qnum_factors.append(iteration.qnum_factor)
                 tnt_distances.append(float(iteration.tnt_data.distance.qfit_distance))
                 maxcut_distances.append(float(iteration.maxcut_data.distance.qfit_distance))
-                clann_distances.append(float(iteration.clann_data.distance.qfit_distance))
                 tnt_distances_rf.append(float(iteration.tnt_data.distance.rf_distance))
                 maxcut_distances_rf.append(float(iteration.maxcut_data.distance.rf_distance))
-                clann_distances_rf.append(float(iteration.clann_data.distance.rf_distance))
                 tnt_times.append(round(float(iteration.tnt_data.running_time) / 60, 3))
                 maxcut_times.append(round(float(iteration.maxcut_data.running_time) / 60, 3))
-                clann_times.append(round(float(iteration.clann_data.running_time) / 60, 3))
+                if iteration.clann_data.distance is not None:
+                    clann_distances_rf.append(float(iteration.clann_data.distance.rf_distance))
+                    clann_distances.append(float(iteration.clann_data.distance.qfit_distance))
+                    clann_times.append(round(float(iteration.clann_data.running_time) / 60, 3))
+                else:
+                    clann_distances_rf.append(0)
+                    clann_distances.append(0)
+                    clann_times.append(0)
 
         plot_results(clann_distances, maxcut_distances, ntaxa, qnum_factors, tnt_distances, 'results/result_qfit_n{}.png')
         plot_results(clann_distances_rf, maxcut_distances_rf, ntaxa, qnum_factors, tnt_distances_rf, 'results/result_rf_n{}.png')
