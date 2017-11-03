@@ -37,9 +37,11 @@ class PaupGenerator(GeneratorBase):
         os.system(command)
         print("### System command finished###")
 
-        with fileinput.FileInput(output_tree_path, inplace=True) as file:
-            for line in file:
-                print(re.sub(r'\)\d*\.?\d*', ')', line[:-2]), end='')
+        with open(output_tree_path, 'r') as tree_fh:
+            tree = tree_fh.read()
+        tree = re.sub(r'\)\d*\.?\d*', ')', tree[:-2])
+        with open(output_tree_path, 'w') as tree_fh:
+            tree_fh.write(tree)
 
         os.remove('PAUP.out')
 
