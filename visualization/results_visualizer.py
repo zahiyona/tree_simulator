@@ -10,8 +10,8 @@ from input_generator.generator_base import SimulationIteration
 
 def main():
     iterations_dump_path = "../data/simulation_iterations_dump"
-    iterations_dump_path = iterations_dump_path + "/simulation_iteration_200_501_50.json"
-    # iterations_dump_path = iterations_dump_path + "/simulation_iteration_7_15_4.json"
+    #iterations_dump_path = iterations_dump_path + "/simulation_iteration_200_501_50.json"
+    iterations_dump_path = iterations_dump_path + "/simulation_iteration_100_201_20.json"
 
     taxa_iteration_map = {} #  type: Dict[float, List[SimulationIteration]]
 
@@ -33,14 +33,17 @@ def main():
         maxcut_distances = []
         tnt_distances = []
         clann_distances = []
+        paup_distances = []
 
         maxcut_distances_rf = []
         tnt_distances_rf = []
         clann_distances_rf = []
+        paup_distances_rf = []
 
         maxcut_times = []
         tnt_times = []
         clann_times = []
+        paup_times = []
 
         for iteration in iterations:
             if iteration.qnum_factor is not None and iteration.tnt_data.distance is not None \
@@ -60,18 +63,27 @@ def main():
                     clann_distances_rf.append(0)
                     clann_distances.append(0)
                     clann_times.append(0)
+                if iteration.paup_data.distance is not None:
+                    paup_distances_rf.append(float(iteration.paup_data.distance.rf_distance))
+                    paup_distances.append(float(iteration.paup_data.distance.qfit_distance))
+                    paup_times.append(round(float(iteration.paup_data.running_time) / 60, 3))
+                else:
+                    paup_distances_rf.append(0)
+                    paup_distances.append(0)
+                    paup_times.append(0)
 
-        plot_results(clann_distances, maxcut_distances, ntaxa, qnum_factors, tnt_distances, 'results/result_qfit_n{}.png')
-        plot_results(clann_distances_rf, maxcut_distances_rf, ntaxa, qnum_factors, tnt_distances_rf, 'results/result_rf_n{}.png')
-        plot_results(clann_times, maxcut_times, ntaxa, qnum_factors, tnt_times, 'results/result_time_n{}.png')
+        plot_results(paup_distances, clann_distances, maxcut_distances, ntaxa, qnum_factors, tnt_distances, 'results/result_qfit_n{}.png')
+        plot_results(paup_distances_rf, clann_distances_rf, maxcut_distances_rf, ntaxa, qnum_factors, tnt_distances_rf, 'results/result_rf_n{}.png')
+        plot_results(paup_times, clann_times, maxcut_times, ntaxa, qnum_factors, tnt_times, 'results/result_time_n{}.png')
 
 
-def plot_results(clann, maxcut, ntaxa, qnum_factors, tnt, plot_file_prefix):
+def plot_results(paup, clann, maxcut, ntaxa, qnum_factors, tnt, plot_file_prefix):
     plt.title("nTaxa: " + str(ntaxa))
     tnt_plt, = plt.plot(qnum_factors, tnt, linewidth=1, marker='^', ms=10, color='b', linestyle='--')
     maxcut_plt, = plt.plot(qnum_factors, maxcut, linewidth=1, marker='+', ms=10, color='r', linestyle='--')
     clann_plt, = plt.plot(qnum_factors, clann, linewidth=1, marker='o', ms=10, color='g', linestyle='--')
-    plt.legend([tnt_plt, maxcut_plt, clann_plt], ['tnt', 'maxcut', 'clann'])
+    paup_plt, = plt.plot(qnum_factors, paup, linewidth=1, marker='o', ms=10, color='y', linestyle='--')
+    plt.legend([tnt_plt, maxcut_plt, clann_plt, paup_plt], ['tnt', 'maxcut', 'clann', 'paup'])
     result_path = plot_file_prefix.format(ntaxa)
     os.makedirs(os.path.dirname(result_path), exist_ok=True)
     plt.savefig(result_path)

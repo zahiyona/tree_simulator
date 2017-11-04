@@ -20,7 +20,7 @@ class PaupGenerator(GeneratorBase):
         perl_script_path = "{}/mrp-mat-from-quartets.pl".format(self._paup_dir_path)
         os.makedirs(os.path.dirname(paup_input_path), exist_ok=True)
         command = "perl {} {} {} {}".format(
-            perl_script_path, simulation_iteration.quartets_path, 9999, paup_input_path
+            perl_script_path, simulation_iteration.quartets_path, 5, paup_input_path
         )
         print("### Running system command: {} ###".format(command))
         os.system(command)
