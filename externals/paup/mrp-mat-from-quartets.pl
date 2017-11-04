@@ -29,7 +29,6 @@ my $line  = <FQR>;
 my @quartets = split(/\s+/,$line);
 my %comp;    
 
-print "quartets @quartets\n";
 foreach my $qr (@quartets){
 #  print "qr $qr\n";
   if ($qr !~ /(\d+),(\d+)\|(\d+),(\d+)/){

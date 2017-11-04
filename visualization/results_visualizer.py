@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import os
 
 from externals import jsonpickle
-from input_generator.generator_base import SimulationIteration
+from input_generator.generator_base import SimulationIteration, TreeData
 
 
 def main():
@@ -48,34 +48,30 @@ def main():
         for iteration in iterations:
             if iteration.qnum_factor is not None and iteration.tnt_data.distance is not None \
                     and iteration.maxcut_data.distance is not None:
+
                 qnum_factors.append(iteration.qnum_factor)
-                tnt_distances.append(float(iteration.tnt_data.distance.qfit_distance))
-                maxcut_distances.append(float(iteration.maxcut_data.distance.qfit_distance))
-                tnt_distances_rf.append(float(iteration.tnt_data.distance.rf_distance))
-                maxcut_distances_rf.append(float(iteration.maxcut_data.distance.rf_distance))
-                tnt_times.append(round(float(iteration.tnt_data.running_time) / 60, 3))
-                maxcut_times.append(round(float(iteration.maxcut_data.running_time) / 60, 3))
-                if iteration.clann_data.distance is not None:
-                    clann_distances_rf.append(float(iteration.clann_data.distance.rf_distance))
-                    clann_distances.append(float(iteration.clann_data.distance.qfit_distance))
-                    clann_times.append(round(float(iteration.clann_data.running_time) / 60, 3))
-                else:
-                    clann_distances_rf.append(0)
-                    clann_distances.append(0)
-                    clann_times.append(0)
-                if iteration.paup_data.distance is not None:
-                    paup_distances_rf.append(float(iteration.paup_data.distance.rf_distance))
-                    paup_distances.append(float(iteration.paup_data.distance.qfit_distance))
-                    paup_times.append(round(float(iteration.paup_data.running_time) / 60, 3))
-                else:
-                    paup_distances_rf.append(0)
-                    paup_distances.append(0)
-                    paup_times.append(0)
+                update_data_arrays(iteration.tnt_data, tnt_distances_rf, tnt_distances, tnt_times)
+                update_data_arrays(iteration.maxcut_data, maxcut_distances_rf, maxcut_distances, maxcut_times)
+                update_data_arrays(iteration.clann_data, clann_distances_rf, clann_distances, clann_times)
+                update_data_arrays(iteration.paup_data, paup_distances_rf, paup_distances, paup_times)
+
 
         plot_results(paup_distances, clann_distances, maxcut_distances, ntaxa, qnum_factors, tnt_distances, 'results/result_qfit_n{}.png')
         plot_results(paup_distances_rf, clann_distances_rf, maxcut_distances_rf, ntaxa, qnum_factors, tnt_distances_rf, 'results/result_rf_n{}.png')
         plot_results(paup_times, clann_times, maxcut_times, ntaxa, qnum_factors, tnt_times, 'results/result_time_n{}.png')
 
+def update_data_arrays(tree_data: TreeData, distances_rf, distances, times):
+    
+    if tree_data.distance is not None:
+        distances_rf.append(float(tree_data.distance.rf_distance))
+        distances.append(float(tree_data.distance.qfit_distance))
+        times.append(round(float(tree_data.running_time) / 60, 3))
+    else:
+        distances_rf.append(0)
+        distances.append(0)
+        times.append(0)
+    
+    return distances_rf, distances, times
 
 def plot_results(paup, clann, maxcut, ntaxa, qnum_factors, tnt, plot_file_prefix):
     plt.title("nTaxa: " + str(ntaxa))
