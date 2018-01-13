@@ -16,7 +16,7 @@ if ($#ARGV >= 2)
     $paup_dir_path = $ARGV[2];
 }
 
-my $cmd = "echo n |$paup_dir_path/paup4a158_ubuntu64 $paup_mat_path";
+my $cmd = "echo n |$paup_dir_path/paup4a158_centos64 $paup_mat_path";
 print "$cmd\n";
 `$cmd`;
 
