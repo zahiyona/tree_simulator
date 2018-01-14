@@ -13,7 +13,7 @@
 # PARTICULAR PURPOSE.
 
 
-SHELL = /bin/bash
+SHELL = /bin/sh
 
 srcdir = .
 top_srcdir = .
@@ -38,10 +38,10 @@ pkglibdir = $(libdir)/clann
 pkgincludedir = $(includedir)/clann
 top_builddir = .
 
-ACLOCAL = ${SHELL} /home/zahi/Desktop/ChrisCreevey-clann-c789b42/missing --run aclocal-1.6
-AUTOCONF = ${SHELL} /home/zahi/Desktop/ChrisCreevey-clann-c789b42/missing --run autoconf
-AUTOMAKE = ${SHELL} /home/zahi/Desktop/ChrisCreevey-clann-c789b42/missing --run automake-1.6
-AUTOHEADER = ${SHELL} /home/zahi/Desktop/ChrisCreevey-clann-c789b42/missing --run autoheader
+ACLOCAL = ${SHELL} /data/home/snir/zyona/tree_simulator/externals/clann/missing --run aclocal-1.6
+AUTOCONF = ${SHELL} /data/home/snir/zyona/tree_simulator/externals/clann/missing --run autoconf
+AUTOMAKE = ${SHELL} /data/home/snir/zyona/tree_simulator/externals/clann/missing --run automake-1.6
+AUTOHEADER = ${SHELL} /data/home/snir/zyona/tree_simulator/externals/clann/missing --run autoheader
 
 am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd
 INSTALL = /usr/bin/install -c
@@ -63,18 +63,18 @@ POST_UNINSTALL = :
 EXEEXT = 
 OBJEXT = o
 PATH_SEPARATOR = :
-AMTAR = ${SHELL} /home/zahi/Desktop/ChrisCreevey-clann-c789b42/missing --run tar
-AWK = mawk
+AMTAR = ${SHELL} /data/home/snir/zyona/tree_simulator/externals/clann/missing --run tar
+AWK = gawk
 CC = gcc
 DEPDIR = .deps
 INSTALL_STRIP_PROGRAM = ${SHELL} $(install_sh) -c -s
-LIBREADLINE = 
+LIBREADLINE = -lreadline -lncurses
 PACKAGE = clann
 STRIP = 
 VERSION = 4.1.6
 am__include = include
 am__quote = 
-install_sh = /home/zahi/Desktop/ChrisCreevey-clann-c789b42/install-sh
+install_sh = /data/home/snir/zyona/tree_simulator/externals/clann/install-sh
 bin_PROGRAMS = clann
 clann_SOURCES = treecompare2.c
 clann_LDADD = $(LDADD) $(LIBREADLINE) -lm

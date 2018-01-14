@@ -104,7 +104,7 @@ print MRPF ";\n".
     "end;\n\n".
     "begin paup;\n\n".
     "set Warnreset=no Autoclose=yes Notifybeep=no MaxTrees=200 Increase=Auto;\n".
-    "hsearch NReps=5 Addseq=random TimeLimit=$time_limit;\n".
+    "hsearch NReps=2 Addseq=random TimeLimit=$time_limit;\n".
     "contree all/  strict=no majrule=yes  TreeFile=../../../PAUP.out replace=yes;\n" .
     "quit WarnTSave=No;\n\n".
     "end;\n";

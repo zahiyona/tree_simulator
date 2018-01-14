@@ -2,7 +2,7 @@
 /* config.h.in.  Generated from configure.in by autoheader.  */
 
 /* READLINE DEF */
-/* #undef HAVE_READLINE */
+#define HAVE_READLINE /**/
 
 /* Name of package */
 #define PACKAGE "clann"
