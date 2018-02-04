@@ -26,7 +26,7 @@ def compare_trees(method_code, ntaxa):
     qfit_means = []
     time_means = []
     scaffolds = os.listdir(simulated_folder_path)
-    scaffolds = [int(scaffold) for scaffold in scaffolds]
+    scaffolds = [float(scaffold) for scaffold in scaffolds]
     scaffolds.sort()
     for scaffold in scaffolds:
         scaffold_path = simulated_folder_path + "/" + str(scaffold)
