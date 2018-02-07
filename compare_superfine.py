@@ -9,7 +9,7 @@ SIMULATED_FOLDER_PATH = 'data/SF/'
 
 def plot_SF_results(maxcut_means, paup_means, scaffolds, y_label, ntaxa):
     plt.title("nTaxa: {}".format(str(ntaxa)))
-    plt.xlabel("scaffold")
+    plt.xlabel("Subtrees")
     plt.ylabel(y_label)
     maxcut_plt, = plt.plot(scaffolds, maxcut_means, linewidth=1, marker='+', ms=10, color='r', linestyle='--')
     paup_plt, = plt.plot(scaffolds, paup_means, linewidth=1, marker='o', ms=10, color='y', linestyle='--')
@@ -26,7 +26,7 @@ def compare_trees(method_code, ntaxa):
     qfit_means = []
     time_means = []
     scaffolds = os.listdir(simulated_folder_path)
-    scaffolds = [float(scaffold) for scaffold in scaffolds]
+    scaffolds = [int(scaffold) for scaffold in scaffolds]
     scaffolds.sort()
     for scaffold in scaffolds:
         scaffold_path = simulated_folder_path + "/" + str(scaffold)
@@ -47,7 +47,7 @@ def compare_trees(method_code, ntaxa):
             rf_similarity = 1 - (float(rf_distance) / ((ntaxa - 3)*2))
             rf_similarities.append(rf_similarity)
 
-            qrt_cnt, cnt_agree, qfit_similarity = compare_quartet_trees(result_tree_path, model_tree_path, int(ntaxa ** QUARTETS_FACTOR))
+            qrt_cnt, cnt_agree, qfit_similarity = compare_quartet_trees(result_tree_path, model_tree_path, int(ntaxa * QUARTETS_FACTOR))
             qfit_similarities.append(qfit_similarity)
         rf_means.append(mean(rf_similarities))
         qfit_means.append(mean(qfit_similarities))

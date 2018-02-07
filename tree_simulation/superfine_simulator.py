@@ -10,7 +10,7 @@ from input_generator import building_a_Yule_tree_2
 from contextlib import contextmanager
 
 
-TAXA_FOR_SUBTREE = 10
+TAXA_FOR_SUBTREE = 15
 
 
 
@@ -70,32 +70,34 @@ def create_superfine_subtrees(simulated_tree, simulated_tree_with_time, ntaxa, s
         trees_with_time = ""
         choosen_taxa_list = []
         taxa = [str(i) for i in range(ntaxa)]
-        with suppress_stdout():
-            for i in range(int(ntaxa*subtrees_factor)):
-                choosen_taxa = random_choice_from_list(taxa, TAXA_FOR_SUBTREE)
-                choosen_taxa_list.append(choosen_taxa)
-                output_tree = obtain_subtree(simulated_tree, choosen_taxa)
-                output_tree_with_time = obtain_subtree_with_length(simulated_tree_with_time, choosen_taxa)
-                trees += output_tree + ";\n"
-                trees_with_time += output_tree_with_time + ";\n"
+
+        while not good_for_scm:
+            for i in range(int(ntaxa * subtrees_factor)):
+                with suppress_stdout():
+                    choosen_taxa = random_choice_from_list(taxa, TAXA_FOR_SUBTREE)
+                    choosen_taxa_list.append(choosen_taxa)
+                    output_tree = obtain_subtree(simulated_tree, choosen_taxa)
+                    output_tree_with_time = obtain_subtree_with_length(simulated_tree_with_time, choosen_taxa)
+                    trees += output_tree + ";\n"
+                    trees_with_time += output_tree_with_time + ";\n"
 
             good_for_scm, taxa_set = scm_verify(choosen_taxa_list)
 
-        if not good_for_scm:
-            print("tree creation failed because of not enough overlap taxa")
-        elif len(taxa_set) != len(taxa):
-            good_for_scm = False
-            print("tree creation failed because of not full taxa in subtrees")
-
+            if not good_for_scm:
+                print("tree creation failed because of not enough overlap taxa")
+            elif len(taxa_set) != len(taxa):
+                good_for_scm = False
+                print("tree creation failed because of not full taxa in subtrees")
     # noinspection PyUnboundLocalVariable
-    return trees, trees_with_time
+    print("count subtrees: {}".format(len(choosen_taxa_list)))
+    # noinspection PyUnboundLocalVariable
+    return trees, trees_with_time, len(choosen_taxa_list)
 
-def simulate_superfine_tree(ntaxa, subtrees_factor, tree_num=1):
-    simulated_tree, simulated_tree_with_time = building_a_Yule_tree_2.building_the_tree(ntaxa)
-    trees, trees_with_time = create_superfine_subtrees(simulated_tree, simulated_tree_with_time, ntaxa, subtrees_factor)
+def simulate_superfine_tree(simulated_tree, simulated_tree_with_time, ntaxa, subtrees_factor, tree_num=1):
+    trees, trees_with_time, subtrees_count = create_superfine_subtrees(simulated_tree, simulated_tree_with_time, ntaxa, subtrees_factor)
 
-    tree_dir = 'data/simulated/{}'.format(subtrees_factor)
-    tree_w_dir = 'data/simulated_w/{}'.format(subtrees_factor)
+    tree_dir = 'data/simulated/{}'.format(subtrees_count)
+    tree_w_dir = 'data/simulated_w/{}'.format(subtrees_count)
     os.makedirs(tree_dir, exist_ok=True)
     os.makedirs(tree_w_dir, exist_ok=True)
 
@@ -109,11 +111,14 @@ def simulate_superfine_tree(ntaxa, subtrees_factor, tree_num=1):
     save_tree(trees, tree_path)
     save_tree(trees_with_time, tree_w_path)
 
+
 def simulate_superfine_trees():
-    for subtrees_factor in [0.5,1.0,1.5]:
-        for i in range(10):
+    ntaxa = 1000
+    for subtrees_factor in [0.5,0.75,1.0,1.25,1.5,1.75]:
+        for i in range(1):
             print("simulating tree #{}".format(i))
-            simulate_superfine_tree(ntaxa=60, subtrees_factor=subtrees_factor, tree_num=i)
+            simulated_tree, simulated_tree_with_time = building_a_Yule_tree_2.building_the_tree(ntaxa)
+            simulate_superfine_tree(simulated_tree, simulated_tree_with_time, ntaxa, subtrees_factor, i)
 
 if __name__ == '__main__':
     simulate_superfine_trees()
